@@ -1,0 +1,27 @@
+{
+  "name": "moss",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A small, self-hostable community suite: one shell, a shelf of plugins, your own domain.",
+  "license": "ISC",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "bridge": "node server/chat-bridge.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.29",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "ws": "8.22.1",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/ws": "^8",
+    "typescript": "5.9.3"
+  }
+}

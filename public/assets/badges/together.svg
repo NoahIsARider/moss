@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <title>Made together</title>
+  <rect width="22" height="19" fill="#eb6f92"/>
+  <rect x="22" width="22" height="19" fill="#f6c177"/>
+  <rect x="44" width="22" height="19" fill="#cbe36f"/>
+  <rect x="66" width="22" height="19" fill="#8fe3b0"/>
+  <rect y="19" width="88" height="12" fill="#e3ecdf"/>
+  <text x="44" y="28" text-anchor="middle" font-family="Verdana, DejaVu Sans, sans-serif" font-size="8.5" font-weight="bold" letter-spacing="0.6" fill="#121a14">MADE TOGETHER</text>
+</svg>

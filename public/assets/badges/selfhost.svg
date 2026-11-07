@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31">
+  <title>Self hosted, run your own</title>
+  <rect width="88" height="31" fill="#8fe3b0"/>
+  <rect width="88" height="4" fill="#cbe36f"/>
+  <text x="44" y="17" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="11" font-weight="bold" letter-spacing="0.4" fill="#121a14">SELF HOSTED</text>
+  <text x="44" y="27" text-anchor="middle" font-family="Verdana, DejaVu Sans, sans-serif" font-size="6.5" letter-spacing="0.5" fill="#121a14">RUN YOUR OWN</text>
+</svg>

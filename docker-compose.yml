@@ -1,0 +1,24 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - moss-data:/app/.data
+
+  bridge:
+    build: .
+    restart: unless-stopped
+    command: ["node", "server/chat-bridge.mjs"]
+    ports:
+      - "8787:8787"
+    env_file:
+      - .env
+    volumes:
+      - moss-data:/app/.data
+
+volumes:
+  moss-data:
