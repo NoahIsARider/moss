@@ -3,7 +3,13 @@
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { currentUser, createSession, findUserByHandleOrEmail, hashPassword, verifyPassword } from "@/lib/auth";
+import {
+  currentUser,
+  createSession,
+  findUserByHandleOrEmail,
+  hashPassword,
+  verifyPassword,
+} from "@/lib/auth";
 import { updateStore } from "@/lib/store";
 import { config } from "@/lib/config";
 
@@ -32,7 +38,13 @@ export async function signup(formData: FormData): Promise<void> {
   }
 
   const user = await updateStore((store) => {
-    if (store.users.some((entry) => entry.handle.toLowerCase() === handle || entry.email.toLowerCase() === email)) {
+    if (
+      store.users.some(
+        (entry) =>
+          entry.handle.toLowerCase() === handle ||
+          entry.email.toLowerCase() === email,
+      )
+    ) {
       return null;
     }
     const created = {
@@ -40,7 +52,7 @@ export async function signup(formData: FormData): Promise<void> {
       handle,
       email,
       passwordHash: hashPassword(password),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
     store.users.push(created);
     return created;

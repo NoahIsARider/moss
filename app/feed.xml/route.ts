@@ -8,7 +8,7 @@ export async function GET() {
     headers: {
       "content-type": "application/rss+xml; charset=utf-8",
       "cache-control": "public, max-age=900",
-      "x-content-type-options": "nosniff"
-    }
+      "x-content-type-options": "nosniff",
+    },
   });
 }

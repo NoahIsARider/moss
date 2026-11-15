@@ -1,65 +1,35 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { MintFrame } from "@/components/shell/Frame";
-import { PageHead } from "@/components/shell/PageParts";
+import { LiveShell } from "@/components/shell/LiveShell";
+import { ThreadList, Empty } from "@/components/ui/Views";
 import { readStore } from "@/lib/store";
-import { shortDate } from "@/lib/format";
-
+import { config } from "@/lib/config";
 export const dynamic = "force-dynamic";
-
-export const metadata: Metadata = {
-  title: "Commons"
-};
-
-export default async function CommunityPage() {
+export const metadata = { title: "Commons" };
+export default async function Community() {
   const store = await readStore();
   const threads = [...store.threads].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
   );
-  const channels = [...new Set(threads.map((thread) => thread.channel))];
-
   return (
-    <MintFrame news="The commons is deliberately slow. Threads stay up, replies stay attached, and nothing is ranked.">
-      <tr>
-        <td colSpan={2}>
-          <PageHead
-            kicker="plugin: commons"
-            title="Commons"
-            lede="Long form threads in the shape of a small forum. No votes, no algorithm, no notification bell. Channels are a filing cabinet, not a feed."
-          />
-          <p className="mono">
-            {threads.length} threads &middot; channels {channels.map((channel) => `#${channel}`).join(" ")}{" "}
-            &middot; <Link href="/community/new">start a thread</Link>
-          </p>
-          {threads.length === 0 ? (
-            <div className="panel">
-              <p className="prose" style={{ margin: 0 }}>
-                No threads yet. This instance starts empty on purpose, so the first post is yours.{" "}
-                <Link href="/community/new">Write it</Link>.
-              </p>
-            </div>
-          ) : null}
-          <table className="list">
-            <tbody>
-              {threads.map((thread, index) => (
-                <tr key={thread.id} className={index % 2 ? "alt" : ""}>
-                  <td className="stamp">{shortDate(thread.createdAt).slice(5)}</td>
-                  <td>
-                    <span className="title">
-                      <Link href={`/community/${thread.slug}`}>{thread.title}</Link>
-                    </span>
-                    <span className="sub">
-                      @{thread.authorHandle} in #{thread.channel} &middot; {thread.replies.length}{" "}
-                      {thread.replies.length === 1 ? "reply" : "replies"}
-                    </span>
-                  </td>
-                  <td className="tag">#{thread.channel}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    </MintFrame>
+    <LiveShell>
+      <div className="view-heading">
+        <div className="section-heading">
+          <h1>Commons</h1>
+          <Link href="/community/new" className="button">
+            New thread
+          </Link>
+        </div>
+        <p>Conversations worth keeping. Take your time.</p>
+      </div>
+      {threads.length ? (
+        <ThreadList threads={threads} />
+      ) : (
+        <Empty title="A shared notebook">
+          No threads yet.{" "}
+          <Link href="/community/new">Leave the first page</Link> for someone to
+          find.
+        </Empty>
+      )}
+    </LiveShell>
   );
 }

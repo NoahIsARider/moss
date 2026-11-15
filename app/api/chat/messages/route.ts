@@ -18,9 +18,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "expected json" }, { status: 400 });
   }
 
-  const body = typeof (payload as { body?: unknown })?.body === "string" ? (payload as { body: string }).body.trim() : "";
+  const body =
+    typeof (payload as { body?: unknown })?.body === "string"
+      ? (payload as { body: string }).body.trim()
+      : "";
   if (body.length === 0 || body.length > 2000) {
-    return NextResponse.json({ error: "body must be 1 to 2000 characters" }, { status: 400 });
+    return NextResponse.json(
+      { error: "body must be 1 to 2000 characters" },
+      { status: 400 },
+    );
   }
 
   const message = await updateStore((store) => {
@@ -29,7 +35,7 @@ export async function POST(request: Request) {
       author: `@${user.handle}`,
       body,
       createdAt: new Date().toISOString(),
-      transport: "moss" as const
+      transport: "moss" as const,
     };
     store.chat.push(created);
     if (store.chat.length > 500) store.chat = store.chat.slice(-500);

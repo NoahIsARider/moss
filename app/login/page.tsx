@@ -9,15 +9,19 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Sign in"
+  title: "Sign in",
 };
 
 const MESSAGES: Record<string, string> = {
   missing: "Both fields are needed.",
-  bad: "That handle and password do not match anything here."
+  bad: "That handle and password do not match anything here.",
 };
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const user = await currentUser();
   if (user) redirect("/home");
   const { error } = await searchParams;
@@ -27,8 +31,14 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <tr>
         <td colSpan={2}>
           <BackLink />
-          <PageHead kicker="account" title="Sign in" lede="Use the handle or the email you signed up with." />
-          {error && MESSAGES[error] ? <div className="notice error">{MESSAGES[error]}</div> : null}
+          <PageHead
+            kicker="account"
+            title="Sign in"
+            lede="Use the handle or the email you signed up with."
+          />
+          {error && MESSAGES[error] ? (
+            <div className="notice error">{MESSAGES[error]}</div>
+          ) : null}
           <form action={login} className="mint-form">
             <table>
               <tbody>
@@ -37,7 +47,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                     <label htmlFor="login">handle or email</label>
                   </td>
                   <td>
-                    <input id="login" type="text" name="login" autoComplete="username" required />
+                    <input
+                      id="login"
+                      type="text"
+                      name="login"
+                      autoComplete="username"
+                      required
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -45,7 +61,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
                     <label htmlFor="password">password</label>
                   </td>
                   <td>
-                    <input id="password" type="password" name="password" autoComplete="current-password" required />
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      autoComplete="current-password"
+                      required
+                    />
                   </td>
                 </tr>
                 <tr>

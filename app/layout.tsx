@@ -5,20 +5,24 @@ import { config } from "@/lib/config";
 export const metadata: Metadata = {
   title: {
     default: config.title,
-    template: `%s · ${config.title}`
+    template: `%s · ${config.title}`,
   },
   description: config.description,
   icons: {
-    icon: "/assets/img/logo.svg"
+    icon: "/assets/img/mark.webp",
   },
   alternates: {
     types: {
-      "application/rss+xml": "/feed.xml"
-    }
-  }
+      "application/rss+xml": "/feed.xml",
+    },
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>{children}</body>

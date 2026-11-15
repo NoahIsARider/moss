@@ -14,10 +14,10 @@ export async function GET() {
     "",
     `# Instance: ${config.domain}`,
     "# Scope: the shell, every plugin, and the chat bridge",
-    ""
+    "",
   ].join("\n");
 
   return new Response(body, {
-    headers: { "content-type": "text/plain; charset=utf-8" }
+    headers: { "content-type": "text/plain; charset=utf-8" },
   });
 }

@@ -9,17 +9,22 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Create a handle"
+  title: "Create a handle",
 };
 
 const MESSAGES: Record<string, string> = {
-  handle: "A handle is 3 to 20 characters, lowercase letters, numbers or underscore.",
+  handle:
+    "A handle is 3 to 20 characters, lowercase letters, numbers or underscore.",
   email: "That email address does not look complete.",
   password: "A password needs at least 8 characters.",
-  taken: "That handle or email is already on this instance."
+  taken: "That handle or email is already on this instance.",
 };
 
-export default async function JoinPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function JoinPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const user = await currentUser();
   if (user) redirect("/home");
   const { error } = await searchParams;
@@ -32,9 +37,11 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
           <PageHead
             kicker="account"
             title="Create a handle"
-            lede="A handle is how the commons, the chat and the code hub know you. Email is only used for recovery on this instance."
+            lede="A local handle for posts, discussions, and chat. Your email stays private."
           />
-          {error && MESSAGES[error] ? <div className="notice error">{MESSAGES[error]}</div> : null}
+          {error && MESSAGES[error] ? (
+            <div className="notice error">{MESSAGES[error]}</div>
+          ) : null}
           <form action={signup} className="mint-form">
             <table>
               <tbody>
@@ -43,7 +50,14 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
                     <label htmlFor="handle">handle</label>
                   </td>
                   <td>
-                    <input id="handle" type="text" name="handle" placeholder="juniper" maxLength={20} required />
+                    <input
+                      id="handle"
+                      type="text"
+                      name="handle"
+                      placeholder="juniper"
+                      maxLength={20}
+                      required
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -51,7 +65,13 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
                     <label htmlFor="email">email</label>
                   </td>
                   <td>
-                    <input id="email" type="email" name="email" placeholder="you@somewhere" required />
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder="you@somewhere"
+                      required
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -59,7 +79,13 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
                     <label htmlFor="password">password</label>
                   </td>
                   <td>
-                    <input id="password" type="password" name="password" minLength={8} required />
+                    <input
+                      id="password"
+                      type="password"
+                      name="password"
+                      minLength={8}
+                      required
+                    />
                   </td>
                 </tr>
                 <tr>
@@ -75,8 +101,9 @@ export default async function JoinPage({ searchParams }: { searchParams: Promise
             </table>
           </form>
           <p className="mono">
-            No terms checkbox. The short version is in the <Link href="/docs#privacy">privacy note</Link>. Do not
-            be cruel, do not scrape people, label the hard things.
+            No terms checkbox. The short version is in the{" "}
+            <Link href="/docs#privacy">privacy note</Link>. Do not be cruel, do
+            not scrape people, label the hard things.
           </p>
         </td>
       </tr>

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export function PageHead({
   kicker,
   title,
-  lede
+  lede,
 }: {
   kicker: string;
   title: string;
@@ -19,7 +19,13 @@ export function PageHead({
   );
 }
 
-export function BackLink({ href = "/", label = "back to the shell" }: { href?: string; label?: string }) {
+export function BackLink({
+  href = "/",
+  label = "back to the shell",
+}: {
+  href?: string;
+  label?: string;
+}) {
   return (
     <div className="inner-nav">
       <Link href={href}>&larr; {label}</Link>
@@ -32,7 +38,7 @@ export function InnerShell({
   title,
   lede,
   children,
-  news
+  news,
 }: {
   kicker: string;
   title: string;

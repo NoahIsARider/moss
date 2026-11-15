@@ -1,5 +1,6 @@
+import { currentUser } from "./auth";
+import { postState } from "./social";
 import { config, absolute } from "./config";
-import { demoFeed } from "../examples/demo-data";
 import { escapeHtml } from "./markdown";
 import { readStore } from "./store";
 import type { FeedItem } from "./types";
@@ -30,7 +31,9 @@ function unwrapCdata(value: string): string {
 
 function decodeEntities(value: string): string {
   return unwrapCdata(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) =>
+      String.fromCodePoint(parseInt(hex, 16)),
+    )
     .replace(/&#(\d+);/g, (_, dec: string) => String.fromCodePoint(Number(dec)))
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
@@ -40,12 +43,16 @@ function decodeEntities(value: string): string {
 }
 
 export function stripTags(value: string): string {
-  return decodeEntities(value.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+  return decodeEntities(value.replace(/<[^>]+>/g, " "))
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function pick(block: string, names: string[]): string {
   for (const name of names) {
-    const match = block.match(new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`, "i"));
+    const match = block.match(
+      new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`, "i"),
+    );
     if (match) return decodeEntities(match[1]).trim();
   }
   return "";
@@ -69,10 +76,14 @@ function parseFeed(xml: string, sourceUrl: string): FeedItem[] {
 
   return blocks.slice(0, 20).map((block, index) => {
     const title = stripTags(pick(block, ["title"])) || "untitled";
-    const summary = stripTags(pick(block, ["description", "summary", "content"]));
+    const summary = stripTags(
+      pick(block, ["description", "summary", "content"]),
+    );
     const updated = pick(block, ["pubDate", "published", "updated", "dc:date"]);
     const parsedDate = updated ? new Date(updated) : new Date();
-    const iso = Number.isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString();
+    const iso = Number.isNaN(parsedDate.getTime())
+      ? new Date().toISOString()
+      : parsedDate.toISOString();
     return {
       id: `${host}-${index}-${title.slice(0, 24)}`,
       title,
@@ -81,46 +92,75 @@ function parseFeed(xml: string, sourceUrl: string): FeedItem[] {
       author: stripTags(pick(block, ["dc:creator", "author", "name"])) || host,
       summary,
       publishedAt: iso,
-      tags: []
+      tags: [],
     };
   });
 }
 
 export async function getRemoteFeedItems(): Promise<FeedItem[]> {
   if (config.feeds.length === 0) return [];
-  if (remoteCache && Date.now() - remoteCache.at < CACHE_MS) return remoteCache.items;
+  if (remoteCache && Date.now() - remoteCache.at < CACHE_MS)
+    return remoteCache.items;
 
   const results = await Promise.allSettled(
     config.feeds.map(async (url) => {
       const response = await fetch(url, {
-        headers: { "user-agent": "moss-timeline/1.0", accept: "application/rss+xml, application/atom+xml" },
+        headers: {
+          "user-agent": "moss-timeline/1.0",
+          accept: "application/rss+xml, application/atom+xml",
+        },
         signal: AbortSignal.timeout(4000),
-        cache: "no-store"
+        cache: "no-store",
       });
       if (!response.ok) throw new Error(`${url} returned ${response.status}`);
       return parseFeed(await response.text(), url);
-    })
+    }),
   );
 
-  const items = results.flatMap((result) => (result.status === "fulfilled" ? result.value : []));
+  const items = results.flatMap((result) =>
+    result.status === "fulfilled" ? result.value : [],
+  );
   remoteCache = { at: Date.now(), items };
   return items;
 }
 
 export async function getFeedItems(): Promise<FeedItem[]> {
   const store = await readStore();
+  const session = await currentUser();
+  const viewer = store.users.find((user) => user.id === session?.id);
   const threadItems: FeedItem[] = store.threads.map((thread) => ({
     id: `thread-${thread.id}`,
     title: thread.title,
     link: `/community/${thread.slug}`,
     source: "commons",
+    avatarUrl: store.users.find((u) => u.handle === thread.authorHandle)
+      ?.avatarUrl,
     author: `@${thread.authorHandle}`,
     summary: thread.body.replace(/\s+/g, " ").slice(0, 180),
     publishedAt: thread.createdAt,
-    tags: [thread.channel]
+    tags: [thread.channel],
   }));
 
-  const local = [...threadItems, ...(config.demo ? demoFeed : []), ...(await getRemoteFeedItems())];
+  const posts: FeedItem[] = (store.posts ?? []).map((post) => ({
+    id: "post-" + post.id,
+    title: post.body.slice(0, 80),
+    summary: post.body,
+    author: "@" + post.authorHandle,
+    source: "local",
+    image: post.image,
+    imageAlt: post.imageAlt,
+    avatarUrl: store.users.find((u) => u.handle === post.authorHandle)
+      ?.avatarUrl,
+    link: "/post/" + post.id,
+    social: {
+      ...postState(post, viewer),
+      postId: post.id,
+      repostedBy: post.repostedBy || [],
+    },
+    publishedAt: post.createdAt,
+    tags: [],
+  }));
+  const local = [...threadItems, ...posts, ...(await getRemoteFeedItems())];
   const seen = new Set<string>();
   return local
     .filter((item) => {
@@ -128,14 +168,19 @@ export async function getFeedItems(): Promise<FeedItem[]> {
       seen.add(item.link);
       return true;
     })
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 }
 
 export function buildRss(items: FeedItem[]): string {
   const updated = items[0]?.publishedAt ?? new Date().toISOString();
   const entries = items
     .map((item) => {
-      const link = item.link.startsWith("http") ? item.link : absolute(item.link);
+      const link = item.link.startsWith("http")
+        ? item.link
+        : absolute(item.link);
       return [
         "  <item>",
         `    <title>${escapeHtml(item.title)}</title>`,
@@ -145,7 +190,7 @@ export function buildRss(items: FeedItem[]): string {
         `    <description>${escapeHtml(item.summary)}</description>`,
         `    <author>${escapeHtml(item.author)}</author>`,
         `    <category>${escapeHtml(item.source)}</category>`,
-        "  </item>"
+        "  </item>",
       ].join("\n");
     })
     .join("\n");
@@ -162,6 +207,6 @@ export function buildRss(items: FeedItem[]): string {
     `    <atom:link href="${absolute("/feed.xml")}" rel="self" type="application/rss+xml" />`,
     entries,
     "  </channel>",
-    "</rss>"
+    "</rss>",
   ].join("\n");
 }

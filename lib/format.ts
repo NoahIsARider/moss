@@ -27,12 +27,14 @@ export function dateTime(iso: string): string {
 }
 
 export function slugify(value: string): string {
-  return value
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60) || "thread";
+  return (
+    value
+      .toLowerCase()
+      .normalize("NFKD")
+      .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 60) || "thread"
+  );
 }
 
 export function number(value: number): string {

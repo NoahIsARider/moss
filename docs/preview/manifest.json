@@ -1,0 +1,226 @@
+[
+  {
+    "id": "home",
+    "title": "Home",
+    "group": "core",
+    "note": "Static showcase · Independent example content",
+    "file": "screens/home.png"
+  },
+  {
+    "id": "code",
+    "title": "Code repositories",
+    "group": "core",
+    "note": "Static showcase · Independent example content",
+    "file": "screens/code.png"
+  },
+  {
+    "id": "timeline",
+    "title": "Social timeline",
+    "group": "core",
+    "note": "Static showcase · Independent example content",
+    "file": "screens/timeline.png"
+  },
+  {
+    "id": "chat",
+    "title": "Chat",
+    "group": "core",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/chat.png"
+  },
+  {
+    "id": "commons",
+    "title": "Commons",
+    "group": "core",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/commons.png"
+  },
+  {
+    "id": "thread",
+    "title": "Discussion and replies",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/thread.png"
+  },
+  {
+    "id": "new-thread",
+    "title": "Start a discussion",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/new-thread.png"
+  },
+  {
+    "id": "post",
+    "title": "Post and replies",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/post.png"
+  },
+  {
+    "id": "profile",
+    "title": "Profile",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/profile.png"
+  },
+  {
+    "id": "account",
+    "title": "Account",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/account.png"
+  },
+  {
+    "id": "explore",
+    "title": "Explore people",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/explore.png"
+  },
+  {
+    "id": "notifications",
+    "title": "Notifications",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/notifications.png"
+  },
+  {
+    "id": "bookmarks",
+    "title": "Bookmarks",
+    "group": "social",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/bookmarks.png"
+  },
+  {
+    "id": "avatars",
+    "title": "32 default avatars",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/avatars.png"
+  },
+  {
+    "id": "appearance",
+    "title": "4 neighborhood scenes",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/appearance.png"
+  },
+  {
+    "id": "docs",
+    "title": "Documentation",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/docs.png"
+  },
+  {
+    "id": "login",
+    "title": "Sign in",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/login.png"
+  },
+  {
+    "id": "join",
+    "title": "Create an account",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/join.png"
+  },
+  {
+    "id": "not-found",
+    "title": "Page not found",
+    "group": "settings",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/not-found.png"
+  },
+  {
+    "id": "live-home",
+    "title": "Home with real data",
+    "group": "compare",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/live-home.png"
+  },
+  {
+    "id": "live-timeline",
+    "title": "Timeline with real data",
+    "group": "compare",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/live-timeline.png"
+  },
+  {
+    "id": "empty-code",
+    "title": "Code without a connected forge",
+    "group": "compare",
+    "note": "Production template · Isolated verification accounts",
+    "file": "screens/empty-code.png"
+  },
+  {
+    "id": "mobile-home",
+    "title": "Home · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-home.png"
+  },
+  {
+    "id": "mobile-code",
+    "title": "Code repositories · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-code.png"
+  },
+  {
+    "id": "mobile-timeline",
+    "title": "Social timeline · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-timeline.png"
+  },
+  {
+    "id": "mobile-chat",
+    "title": "Chat · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-chat.png"
+  },
+  {
+    "id": "mobile-community",
+    "title": "Commons · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-community.png"
+  },
+  {
+    "id": "mobile-docs",
+    "title": "Documentation · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-docs.png"
+  },
+  {
+    "id": "mobile-avatars",
+    "title": "32 default avatars · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-avatars.png"
+  },
+  {
+    "id": "mobile-appearance",
+    "title": "4 neighborhood scenes · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-appearance.png"
+  },
+  {
+    "id": "mobile-login",
+    "title": "Sign in · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-login.png"
+  },
+  {
+    "id": "mobile-join",
+    "title": "Create an account · Mobile",
+    "group": "mobile",
+    "note": "390px viewport · Production template",
+    "file": "screens/mobile-join.png"
+  }
+]

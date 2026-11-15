@@ -1,0 +1,7 @@
+# November 2026 redesign
+The approved mockups in docs/design/2026-11-15 guide layout, typography, surface hierarchy, navigation and content density. The final home background intentionally uses an original rooftop scene with the user's preferred thick black contours and saturated blue/green/yellow palette. Three matching alternatives are included.
+The old pale canal illustration was rejected; it is retained only in source design assets, not referenced by the application. All final generated assets are optimized WebP. Original image-generation prompts are in assets/prompts.json.
+Production sample content was removed. The pre-existing local seed-only store had zero users and was backed up to .data/pre-redesign-seed-backup.json before being reset; real records are never automatically cleared by application startup.
+The static showcase shares UI with the real application but lives under demo/. Demo backend limitations are explained at the point of use. Actual template actions use authenticated server actions and real persistence.
+
+Real social features now include following, likes, reposts, bookmarks, replies, profiles, people search, and notifications derived from actual interactions. Image posts and custom avatar uploads are validated, decoded, resized and stored under the persistent data directory; static demo assets are separate. Store reads and writes share a process-global queue, including first initialization, with a concurrent-read regression test.

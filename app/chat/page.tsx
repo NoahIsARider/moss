@@ -10,7 +10,7 @@ import { readChat } from "@/lib/matrix";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Chat"
+  title: "Chat",
 };
 
 export default async function ChatPage() {
@@ -24,19 +24,22 @@ export default async function ChatPage() {
           <PageHead
             kicker="plugin: chat"
             title="Chat"
-            lede="One room, no threads, no read receipts. Messages arrive over server sent events by default and over a WebSocket bridge when one is running."
+            lede="A room to stop by, say hello, and catch up."
           />
           <div className="panel" style={{ marginTop: 6 }}>
             <p className="mono" style={{ margin: 0 }}>
-              room #lobby:{config.domain} &middot; {matrixConfigured() ? "mirrored to a matrix homeserver" : "local store"} &middot;{" "}
+              room #lobby:{config.domain} &middot;{" "}
+              {matrixConfigured()
+                ? "mirrored to a matrix homeserver"
+                : "local store"}{" "}
+              &middot;{" "}
               {user ? `signed in as @${user.handle}` : "guest, read only"}
             </p>
           </div>
-          <ChatRoom initial={messages} viewer={user ? `@${user.handle}` : null} />
-          <p className="mono">
-            Bridge: <span style={{ color: "#8fe3b0" }}>ws://localhost:8787</span> &middot;{" "}
-            <a href="/docs#chat">setup notes</a>
-          </p>
+          <ChatRoom
+            initial={messages}
+            viewer={user ? `@${user.handle}` : null}
+          />
         </td>
       </tr>
     </MintFrame>

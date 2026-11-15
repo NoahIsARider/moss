@@ -9,36 +9,36 @@ export async function GET() {
     name: "moss",
     version: "2.0.0",
     shell: {
-      frame: "600px table, mint style",
-      license: "ISC"
+      frame: "responsive neighborhood shell",
+      license: "ISC",
     },
     plugins: [
       {
         id: "timeline",
-        name: "RSS/Atom timeline",
+        name: "Local posts and RSS/Atom timeline",
         enabled: pluginEnabled("timeline"),
-        routes: ["/timeline", "/feed.xml"]
+        routes: ["/timeline", "/feed.xml"],
       },
       {
         id: "forge",
         name: "Forgejo/Gitea hub",
         enabled: pluginEnabled("forge"),
-        routes: ["/code"]
+        routes: ["/code"],
       },
       {
         id: "chat",
         name: "Matrix/WebSocket chat",
         enabled: pluginEnabled("chat"),
-        routes: ["/chat", "/api/chat/messages", "/api/chat/stream"]
+        routes: ["/chat", "/api/chat/messages", "/api/chat/stream"],
       },
       {
         id: "commons",
         name: "Lemmy/Discourse style community",
         enabled: pluginEnabled("commons"),
-        routes: ["/community", "/community/[slug]", "/community/new"]
-      }
+        routes: ["/community", "/community/[slug]", "/community/new"],
+      },
     ],
     services: serviceGroups,
-    active: [...enabledPlugins]
+    active: [...enabledPlugins],
   });
 }

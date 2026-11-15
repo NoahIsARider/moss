@@ -8,16 +8,20 @@ import { currentUser } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "New thread"
+  title: "New thread",
 };
 
 const MESSAGES: Record<string, string> = {
   title: "A title needs between 4 and 120 characters.",
   body: "A body needs at least 10 characters. Context helps the next reader.",
-  channel: "Pick a channel."
+  channel: "Pick a channel.",
 };
 
-export default async function NewThreadPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function NewThreadPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const { error } = await searchParams;
   const user = await currentUser();
 
@@ -33,24 +37,37 @@ export default async function NewThreadPage({ searchParams }: { searchParams: Pr
           />
           {!user ? (
             <div className="notice">
-              You need a handle first. <Link href="/join">Create one</Link> or <Link href="/login">sign in</Link>.
+              You need a handle first. <Link href="/join">Create one</Link> or{" "}
+              <Link href="/login">sign in</Link>.
             </div>
           ) : (
             <>
-              {error && MESSAGES[error] ? <div className="notice error">{MESSAGES[error]}</div> : null}
+              {error && MESSAGES[error] ? (
+                <div className="notice error">{MESSAGES[error]}</div>
+              ) : null}
               <form action={createThread} className="mint-form">
                 <table>
                   <tbody>
                     <tr>
                       <td>
                         <label htmlFor="title">title</label>
-                        <input id="title" type="text" name="title" maxLength={120} required />
+                        <input
+                          id="title"
+                          type="text"
+                          name="title"
+                          maxLength={120}
+                          required
+                        />
                       </td>
                     </tr>
                     <tr>
                       <td>
                         <label htmlFor="channel">channel</label>
-                        <select id="channel" name="channel" defaultValue="workshop">
+                        <select
+                          id="channel"
+                          name="channel"
+                          defaultValue="workshop"
+                        >
                           <option value="hello">#hello</option>
                           <option value="workshop">#workshop</option>
                           <option value="library">#library</option>

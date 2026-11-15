@@ -11,3 +11,12 @@ out/
 debug.log
 *.tsbuildinfo
 next-env.d.ts
+
+# Isolated showcase build outputs
+demo/.next/
+demo/out/
+demo/public/
+demo/app/theme.css
+demo/next-env.d.ts
+
+.next-verification/

@@ -5,6 +5,10 @@ export interface User {
   handle: string;
   email: string;
   passwordHash: string;
+  avatar?: number;
+  avatarUrl?: string;
+  following?: string[];
+  bookmarks?: string[];
   createdAt: string;
 }
 
@@ -54,9 +58,29 @@ export interface FeedItem {
   summary: string;
   publishedAt: string;
   tags: string[];
+  image?: string;
+  imageAlt?: string;
+  avatarUrl?: string;
+  social?: import("@/components/social/Actions").SocialState & {
+    postId: string;
+    repostedBy: string[];
+  };
+}
+
+export interface Post {
+  image?: string;
+  imageAlt?: string;
+  likedBy?: string[];
+  repostedBy?: string[];
+  replies?: Reply[];
+  id: string;
+  authorHandle: string;
+  body: string;
+  createdAt: string;
 }
 
 export interface StoreShape {
+  posts?: Post[];
   users: User[];
   threads: Thread[];
   chat: ChatMessage[];

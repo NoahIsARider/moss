@@ -9,10 +9,10 @@ export async function GET() {
       links: [
         {
           rel: "http://nodeinfo.diaspora.software/ns/schema/2.1",
-          href: absolute("/nodeinfo/2.1")
-        }
-      ]
+          href: absolute("/nodeinfo/2.1"),
+        },
+      ],
     },
-    { headers: { "access-control-allow-origin": "*" } }
+    { headers: { "access-control-allow-origin": "*" } },
   );
 }

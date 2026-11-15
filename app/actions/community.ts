@@ -17,8 +17,10 @@ export async function createThread(formData: FormData): Promise<void> {
   const body = String(formData.get("body") ?? "").trim();
   const channel = String(formData.get("channel") ?? "workshop");
 
-  if (title.length < 4 || title.length > 120) redirect("/community/new?error=title");
-  if (body.length < 10 || body.length > 8000) redirect("/community/new?error=body");
+  if (title.length < 4 || title.length > 120)
+    redirect("/community/new?error=title");
+  if (body.length < 10 || body.length > 8000)
+    redirect("/community/new?error=body");
   if (!CHANNELS.includes(channel)) redirect("/community/new?error=channel");
 
   const slug = await updateStore((store) => {
@@ -37,7 +39,7 @@ export async function createThread(formData: FormData): Promise<void> {
       channel,
       authorHandle: user.handle,
       createdAt: new Date().toISOString(),
-      replies: []
+      replies: [],
     });
     return candidate;
   });
@@ -53,7 +55,8 @@ export async function addReply(formData: FormData): Promise<void> {
 
   const threadId = String(formData.get("threadId") ?? "");
   const body = String(formData.get("body") ?? "").trim();
-  if (!threadId || body.length < 1 || body.length > 4000) redirect("/community");
+  if (!threadId || body.length < 1 || body.length > 4000)
+    redirect("/community");
 
   const slug = await updateStore((store) => {
     const thread = store.threads.find((entry) => entry.id === threadId);
@@ -62,7 +65,7 @@ export async function addReply(formData: FormData): Promise<void> {
       id: crypto.randomUUID(),
       authorHandle: user.handle,
       body,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     });
     return thread.slug;
   });

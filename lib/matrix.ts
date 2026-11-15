@@ -3,7 +3,9 @@ import { readStore } from "./store";
 import type { ChatMessage } from "./types";
 
 export function matrixConfigured(): boolean {
-  return Boolean(config.matrix.homeserver && config.matrix.token && config.matrix.room);
+  return Boolean(
+    config.matrix.homeserver && config.matrix.token && config.matrix.room,
+  );
 }
 
 interface MatrixEvent {
@@ -26,7 +28,7 @@ export async function readChat(limit = 30): Promise<ChatMessage[]> {
     const response = await fetch(url, {
       headers: { authorization: `Bearer ${config.matrix.token}` },
       signal: AbortSignal.timeout(3000),
-      cache: "no-store"
+      cache: "no-store",
     });
     if (!response.ok) throw new Error(`matrix returned ${response.status}`);
     const payload = (await response.json()) as { chunk?: MatrixEvent[] };
@@ -37,10 +39,16 @@ export async function readChat(limit = 30): Promise<ChatMessage[]> {
         author: event.sender,
         body: event.content?.body ?? "",
         createdAt: new Date(event.origin_server_ts).toISOString(),
-        transport: "matrix"
+        transport: "matrix",
       }))
       .reverse();
-    return events.length > 0 ? events : local;
+    return [
+      ...new Map(
+        [...events, ...local].map((message) => [message.id, message]),
+      ).values(),
+    ]
+      .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt))
+      .slice(-limit);
   } catch {
     return local;
   }
