@@ -391,8 +391,12 @@ button[type="submit"]:hover {
   position: sticky;
   top: 0;
   align-self: start;
-  height: 100vh;
-  max-height: 1000px;
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -402,6 +406,7 @@ button[type="submit"]:hover {
   margin-bottom: 25px;
 }
 .side-nav > a:not(.brand) {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 17px;
@@ -1345,6 +1350,8 @@ code {
     right: 0;
     height: auto;
     max-height: none;
+    overflow: visible;
+    overscroll-behavior-y: auto;
     z-index: 20;
     flex-direction: row;
     justify-content: space-around;
@@ -1775,9 +1782,6 @@ code {
 }
 .brand img {
   mix-blend-mode: normal;
-}
-.community-shell .side-nav {
-  max-height: none;
 }
 .community-shell .side-nav .brand {
   flex-shrink: 0;

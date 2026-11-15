@@ -4,7 +4,30 @@ A little place to be together. A self-hosted community with a timeline, a code h
 
 [Try the public demo](https://noahisarider.github.io/moss/) · [Design notes](DESIGN.md) · [ISC license](LICENSE)
 
-![moss home](docs/screenshots/home.png)
+![moss rooftop neighborhood](docs/screenshots/home-neighborhood.png)
+
+## A look around
+
+Screenshots from the current [public showcase](https://noahisarider.github.io/moss/). Example people and activity belong to the isolated demo; a fresh production instance starts empty.
+
+<table>
+<tr>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/timeline/"><img src="docs/screenshots/timeline-neighborhood.png" alt="moss Timeline screenshot" width="600"></a><br><strong>Timeline</strong> — A familiar social layout with room for everyday things.</td>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/code/"><img src="docs/screenshots/code-neighborhood.png" alt="moss Code screenshot" width="600"></a><br><strong>Code</strong> — Repositories first, with search, filtering, and sorting.</td>
+</tr>
+<tr>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/community/"><img src="docs/screenshots/commons-neighborhood.png" alt="moss Commons screenshot" width="600"></a><br><strong>Commons</strong> — Slower conversations and replies that stay together.</td>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/chat/"><img src="docs/screenshots/chat-neighborhood.png" alt="moss Chat screenshot" width="600"></a><br><strong>Chat</strong> — A room to stop by and say hello.</td>
+</tr>
+<tr>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/avatars/"><img src="docs/screenshots/avatars-neighborhood.png" alt="moss Default avatars screenshot" width="600"></a><br><strong>Default avatars</strong> — 32 hand-drawn portraits.</td>
+<td width="50%" valign="top"><a href="https://noahisarider.github.io/moss/appearance/"><img src="docs/screenshots/appearance-neighborhood.png" alt="moss Change scenery screenshot" width="600"></a><br><strong>Change scenery</strong> — Four original scenes, saved per browser.</td>
+</tr>
+</table>
+
+<p><a href="docs/screenshots/mobile-neighborhood.png"><img src="docs/screenshots/mobile-neighborhood.png" alt="moss timeline on a phone" width="280"></a></p>
+
+The same community fits a smaller screen. [Explore the live demo](https://noahisarider.github.io/moss/).
 
 ## Getting started
 
